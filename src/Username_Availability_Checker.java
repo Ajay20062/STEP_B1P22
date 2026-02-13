@@ -1,31 +1,31 @@
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-class Username_Availability_Checker {
+public class Username_Availability_Checker {
 
-    // username -> userId
-    private Map<String, Integer> userMap = new ConcurrentHashMap<>();
+    // username -> userId (existing users)
+    private static Map<String, Integer> userMap = new ConcurrentHashMap<>();
 
-    // username -> attempt count
-    private Map<String, Integer> attemptCount = new ConcurrentHashMap<>();
+    // username -> number of attempts
+    private static Map<String, Integer> attemptFrequency = new ConcurrentHashMap<>();
 
-    private String mostAttempted = "";
-    private int maxAttempts = 0;
+    private static String mostAttempted = "";
+    private static int maxAttempts = 0;
 
-    // Constructor (simulate existing users)
-    public void UsernameChecker() {
+    // Initialize with some existing usernames
+    static {
         userMap.put("john_doe", 101);
         userMap.put("admin", 1);
         userMap.put("root", 2);
     }
 
-    // O(1) username availability check
-    public boolean checkAvailability(String username) {
-        // Track frequency
-        int count = attemptCount.getOrDefault(username, 0) + 1;
-        attemptCount.put(username, count);
+    // O(1) availability check
+    public static boolean checkAvailability(String username) {
+        // Track attempt frequency
+        int count = attemptFrequency.getOrDefault(username, 0) + 1;
+        attemptFrequency.put(username, count);
 
-        // Update most attempted
+        // Track most attempted username
         if (count > maxAttempts) {
             maxAttempts = count;
             mostAttempted = username;
@@ -35,14 +35,14 @@ class Username_Availability_Checker {
     }
 
     // Suggest alternative usernames
-    public List<String> suggestAlternatives(String username) {
+    public static List<String> suggestAlternatives(String username) {
         List<String> suggestions = new ArrayList<>();
 
         int i = 1;
         while (suggestions.size() < 3) {
-            String candidate = username + i;
-            if (!userMap.containsKey(candidate)) {
-                suggestions.add(candidate);
+            String newName = username + i;
+            if (!userMap.containsKey(newName)) {
+                suggestions.add(newName);
             }
             i++;
         }
@@ -57,18 +57,23 @@ class Username_Availability_Checker {
     }
 
     // Get most attempted username
-    public String getMostAttempted() {
+    public static String getMostAttempted() {
         return mostAttempted + " (" + maxAttempts + " attempts)";
     }
 
-    // Test Driver
+    // Main method (test cases)
     public static void main(String[] args) {
-        Username_Availability_Checker checker = new Username_Availability_Checker();
 
-        System.out.println(checker.Username_Availability_Checker("john_doe"));   // false
-        System.out.println(checker.Username_Availability_Checker("jane_smith")); // true
+        System.out.println("checkAvailability(\"john_doe\") → "
+                + checkAvailability("john_doe"));
 
-        System.out.println(checker.suggestAlternatives("john_doe"));
-        System.out.println(checker.getMostAttempted());
+        System.out.println("checkAvailability(\"jane_smith\") → "
+                + checkAvailability("jane_smith"));
+
+        System.out.println("suggestAlternatives(\"john_doe\") → "
+                + suggestAlternatives("john_doe"));
+
+        System.out.println("Most Attempted Username → "
+                + getMostAttempted());
     }
 }
