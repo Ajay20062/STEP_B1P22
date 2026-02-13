@@ -1,13 +1,15 @@
+package Week1_Week2;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Username_Availability_Checker {
 
     // username -> userId (existing users)
-    private static Map<String, Integer> userMap = new ConcurrentHashMap<>();
+    private static final Map<String, Integer> userMap = new ConcurrentHashMap<>();
 
     // username -> number of attempts
-    private static Map<String, Integer> attemptFrequency = new ConcurrentHashMap<>();
+    private static final Map<String, Integer> attemptFrequency = new ConcurrentHashMap<>();
 
     private static String mostAttempted = "";
     private static int maxAttempts = 0;
