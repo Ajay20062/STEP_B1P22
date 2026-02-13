@@ -45,8 +45,8 @@ git config user.email
 
 If incorrect, set them properly:
 
-git config user.name "Student Name"
-git config user.email "student@email.com"
+git config user.name "T R Ajay Dharrsan"
+git config user.email "ajaydharrsan@email.com"
 
 
 Important:
