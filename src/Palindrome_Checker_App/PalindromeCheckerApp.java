@@ -6,35 +6,35 @@ import java.util.*;
  * =====================================================
  * MAIN CLASS - Palindrome Checker App
  * =====================================================
- *
+ * <p>
  * All palindrome validation techniques combined.
  * Now accepts input from user.
- *
+ *</p>
  * @author T R Ajay Dharrsan
  * @version 9.0
  */
 
 public class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("===========================================");
-        System.out.println("             PALINDROME CHECKER App        ");
-        System.out.println("===========================================");
+        System.out.println("=======================================================");
+        System.out.println("               PALINDROME CHECKER App         ");
+        System.out.println("=======================================================");
         System.out.println();
-        System.out.println("===========================================");
-        System.out.println("               Version: 9.0                ");
-        System.out.println("    Welcome to Palindrome Application!     ");
-        System.out.println("     Application started successfully.     ");
-        System.out.println("===========================================");
+        System.out.println("=======================================================");
+        System.out.println("                 Version: 9.0                 ");
+        System.out.println("     Welcome to Palindrome Application!       ");
+        System.out.println("       Application started successfully.      ");
+        System.out.println("========================================================");
         System.out.println();
 
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        System.out.println("===========================================");
+        System.out.println("========================================================");
 
         System.out.println("UC2 - Half Loop            : " + checkHalfLoop(input));
         System.out.println("UC3 - Reverse String       : " + checkReverse(input));
@@ -43,6 +43,7 @@ public class PalindromeCheckerApp {
         System.out.println("UC6 - Queue + Stack        : " + checkQueueStack(input));
         System.out.println("UC7 - Deque Optimized      : " + checkDeque(input));
         System.out.println("UC8 - Linked List          : " + checkLinkedList(input));
+        System.out.println("UC9 - Recursive            : " + checkRecursive(input));
 
 
 
@@ -152,6 +153,26 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+
+    // UC9: Recursive Palindrome
+    public static boolean checkRecursive(String input) {
+        return recursive(input, 0, input.length() - 1);
+    }
+
+    private static boolean recursive(String input, int start, int end) {
+
+        if (start >= end) {
+            return true;
+        }
+
+        if (input.charAt(start) != input.charAt(end)) {
+            return false;
+        }
+
+        return recursive(input, start + 1, end - 1);
+    }
+
+
 
 
 }
